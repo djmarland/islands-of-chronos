@@ -1,0 +1,54 @@
+version: '2'
+
+services:
+
+  nginx:
+    build: ./docker/nginx
+    restart: always
+    ports:
+      - "8090:80"
+    volumes:
+      - .:/src
+      - ./nginx/dev/www.dev.chronos.com.conf:/etc/nginx/conf.d/www.dev.chronos.com.conf
+      - ./nginx/dev/static.dev.chronos.com.conf:/etc/nginx/conf.d/static.dev.chronos.com.conf
+    links:
+        - node:node
+
+  node:
+    build: ./docker/node
+    restart: always
+    tty: true
+    ports:
+      - "3030:3000"
+    volumes:
+      - ./www:/src
+#    command: nodemon -L src/server.js
+
+#  web:
+#    image: nginx:latest
+#    ports:
+#      - "8085:80"
+#    volumes:
+#      - .:/app
+#      - ./nginx/dev/www.isinanalytics.com.conf:/etc/nginx/conf.d/dev.isinanalytics.com.conf
+#
+#  db:
+#    image: mysql:5.7
+#    expose:
+#      - "3306"
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - ./data:/data
+#      - db_data:/var/lib/mysql
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: app
+#      MYSQL_USER: dbuser
+#      MYSQL_PASSWORD: password
+
+
+
+#volumes:
+#  db_data:

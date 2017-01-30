@@ -1,0 +1,6 @@
+docker exec -it chronos_node_1 /bin/bash
+docker exec -it chronos_ngnix_1 /bin/bash
+
+docker-compose stop node
+docker-compose build node
+docker-compose up -d --no-deps node
